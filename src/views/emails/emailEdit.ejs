@@ -1,0 +1,68 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">
+                Email Template
+            </h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item active">Email Template</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <%- include('../common/flashMessage.ejs') %>
+        <div class="row">
+            <div class="col-12">
+                <form action="<%= siteURL %>emailTemplates" method="POST">
+                    <input type="text" name="id" value="<%= data.id%>" class="d-none" placeholder="id">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">
+                                <div class="form-group">
+                                    <label class="control-label">Title</label>
+                                    <input type="text" id="title" name="title" value="<%= data.title%>"
+                                        class="form-control" placeholder="title">
+                                </div>
+                            </h6>
+                            <h6 class="card-title">
+                                <div class="form-group">
+                                    <label class="control-label">Subject</label>
+                                    <input type="text" id="subject" name="subject" value="<%= data.subject%>"
+                                        class="form-control" placeholder="subject">
+                                </div>
+                            </h6>
+                            <div class="form-group">
+                                <label class="control-label">Format</label>
+                                <textarea id="emailTemplateFormat" name="format"
+                                    placeholder="format"><%= data.format%></textarea>
+                            </div>
+                            <div class="form-actions mt-2">
+                                <button type="submit" class="btn btn-success">Save</button>
+                                <button onclick="history.back()" type="button" class="btn btn-inverse">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+<script>
+    if ($("#emailTemplateFormat").length > 0) {
+        tinymce.init({
+            selector: "textarea#emailTemplateFormat",
+            theme: "modern",
+            height: 300,
+            plugins: [
+                "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "save table contextmenu directionality emoticons template paste textcolor"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons",
+
+        });
+    }
+</script>

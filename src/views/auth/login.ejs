@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    .error {
+      color: red;
+    }
+    .spinner-border-sm {
+      margin-bottom: 4px !important;
+    }
+  </style>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../../public/images/favicon.png"
+    />
+    <!-- page css -->
+    <link
+      href="../../public/dist/css/pages/login-register-lock.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link href="../../public/dist/css/style.min.css" rel="stylesheet" />
+    <!-- toast CSS -->
+    <link
+      href="../../public/node_modules/toast-master/css/jquery.toast.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="skin-default card-no-border">
+    <div
+      class="login-register"
+      style="
+        background-image: url(../../public/images/background/login-register.jpg);
+      "
+    >
+      <div class="login-box card">
+        <section id="wrapper">
+          <%- include('../common/flashMessage.ejs') %>
+          <div class="card-body">
+            <!-- Login form -->
+            <form
+              class="form-horizontal form-material"
+              id="loginform"
+              action="authenticate"
+              method="POST"
+            >
+              <h3 class="text-center m-b-20">Sign In</h3>
+              <div class="form-group">
+                <div class="col-xs-12">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="email"
+                    placeholder="Email"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-12">
+                  <input
+                    class="form-control"
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <div class="d-flex no-block align-items-center">
+                    <div class="ml-auto">
+                      <a
+                        href="<%= siteURL %>get_forgot_password"
+                        id="to-recover"
+                        class="text-muted"
+                        ></i> Forgot pwd?</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group text-center">
+                <div class="col-xs-12 p-b-20">
+                  <button
+                    class="btn btn-block btn-lg btn-info btn-rounded"
+                    type="submit"
+                  >
+                    Log In
+                  </button>
+                </div>
+              </div>
+            </form>
+            <!-- Login form -->
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="../../public/node_modules/jquery/jquery-3.2.1.min.js"></script>
+    <script src="../../public/node_modules/popper/popper.min.js"></script>
+    <script src="../../public/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../../public/node_modules/toast-master/js/jquery.toast.js"></script>
+    <script src="../../public/dist/js/pages/toastr.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"
+      integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script type="text/javascript">
+      $(function () {
+        $("#loginform").validate({
+          rules: {
+            email: {
+              required: true,
+              email: true,
+            },
+            password: {
+              required: true,
+            },
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

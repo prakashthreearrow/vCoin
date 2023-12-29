@@ -1,0 +1,141 @@
+<!-- Change form -->
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">Edit Plan</h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item active">Edit Plan</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <%- include('../common/flashMessage.ejs') %>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="" id="planform" action="<%= siteURL %>update_plan" method="POST"
+                            enctype="multipart/form-data">
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label">Title</label>
+                                        <input class="form-control" type="text" readonly name="title"
+                                            value="<%= data.title %>" placeholder="Enter Title" />
+                                        <input type="hidden" name="id" value="<%= data.id %>">
+                                    </div>
+
+                                    <div class="col-md-6" id="price_block">
+                                        <label class="control-label">Price</label>
+                                        <input class="form-control" id="price" value="<%= data.price %>" type="number"
+                                            name="price" placeholder="Enter Price" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Type</label>
+                                        <select class="custom-select col-12" id="type" name="type">
+                                            <option value="1" <% if( data.type==1 ){%> selected <% } %>>Free</option>
+                                            <option value="2" <% if( data.type==2 ){%> selected <% } %>>Paid</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="control-label">Plan Price Id</label>
+                                        <input class="form-control" id="plan_price_id" value="<%= data.plan_price_id %>"
+                                            type="text" name="plan_price_id" placeholder="Enter Plan Id" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="control-label">Description</label>
+                                        <textarea class="form-control" id="description" rows="3" name="description"
+                                            placeholder="Enter Description"><%= data.description %></textarea>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label class="control-label">Photo</label>
+                                        <input class="form-control" id="photo" type="file" name="photo" />
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary waves-effect waves-light" type="submit">
+                                Save
+                            </button>
+                            <button onclick="history.back()" type="button" class="btn btn-inverse">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<!-- Change form -->
+<script type="text/javascript">
+    $("#type").change(function () {
+        var type = $("#type").val();
+        if (type === '1') {
+            $('#price_block').hide();
+        } else if (type === '2') {
+            $('#price_block').show();
+        }
+    });
+    $(function () {
+        var type = $("#type").val();
+        if (type === '1') {
+            $('#price_block').hide();
+        }
+        $("#planform").validate({
+            rules: {
+                title: {
+                    required: true,
+                },
+                price: {
+                    required: true,
+                    custom_price_rule: true,
+                },
+                plan_price_id: {
+                    required: true,
+                },
+                description: {
+                    required: true,
+                    custom_description_rule: true,
+                },
+                type: {
+                    required: true,
+                },
+            },
+        });
+        // custom validation for price field
+        $.validator.addMethod("custom_price_rule", function () {
+            var price_val = $("#price").val();
+            if (price_val > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }, "input should greater than 0");
+
+        // custom validation for description field
+        $.validator.addMethod("custom_description_rule", function () {
+            var description_val = $("#description").val();
+            if (description_val.length < 200) {
+                return true;
+            } else {
+                return false;
+            }
+        }, "sorry you are exceeding the limit, character shouldn't be more than 200.");
+    });
+</script>

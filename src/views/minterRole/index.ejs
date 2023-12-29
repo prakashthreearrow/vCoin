@@ -1,0 +1,144 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">
+                Vibecoin Minter Role
+            </h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="<%= siteURL %>dashboard">Home</a></li>
+                    <li class="breadcrumb-item active">Vibecoin Minter Role</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <%- include('../common/flashMessage.ejs') %>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <button class="btn btn-primary waves-effect waves-light" data-toggle="modal"
+                            data-target="#myModal" onclick="get_minter_role_form('')" type="submit">
+                            Grant Minter Role
+                        </button>
+                        <div class="table-responsive">
+                            <table id="vibecoin_list_minter_role"
+                                class="table table-striped table-bordered contact-list" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Address</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% data.result.forEach(function (vibecoinMintRoleDetails) { %>
+                                        <tr>
+                                            <td>
+                                                <p class="text-center">
+                                                    <% if(vibecoinMintRoleDetails.address){ %>
+                                                        <%= vibecoinMintRoleDetails.address %>
+                                                            <% } else { %>-<% } %>
+                                                </p>
+                                            </td>
+                                            <td class="box-label text-center"><a class="btn btn-sm btn-dark"
+                                                    data-toggle="modal" data-target="#myModal"
+                                                    onclick="get_minter_role_revoke('<%=vibecoinMintRoleDetails.id %>')"><i
+                                                        class="ti-lock text-white"></i></a>
+
+                                            </td>
+                                        </tr>
+                                        <%}); %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<!-- Below model is to add minter role address -->
+<div id="vibecoin_minter_role_add_modal" class="modal show" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    style="display: none;" aria-modal="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form id="minter-role-form" action="<%= siteURL %>save-minter-role" method="POST">
+                <div class="modal-header">
+                    <h4 class="modal-title">Grant Minter Role</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body detail_part">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <label class="control-label">Address</label>
+                                <input class="form-control" type="text" name="address" placeholder="Enter Address" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary waves-effect waves-light" type="submit" id="minter-role-button">
+                        Minter Role
+                    </button>
+                    <button type="button" class="btn btn-default waves-effect" id="vibecoin_modal"
+                        data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Below model is to revoke minter role address -->
+<div id="vibecoin_minter_role_revoke_modal" class="modal show" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel" style="display: none;" aria-modal="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form id="minter-role-form" action="<%= siteURL %>delete_minter_role" method="POST">
+                <input id="vibecoin_minter_roles_id" type="hidden" name="id" id="id" value="">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you sure, you want to revoke ?</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary waves-effect waves-light" type="submit" id="minter-role-button">
+                        YES
+                    </button>
+                    <button type="button" class="btn btn-default waves-effect" id="vibecoin_modal"
+                        data-dismiss="modal">NO</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#minter-role-form").validate({
+            rules: {
+                address: {
+                    required: true,
+                }
+            },
+        });
+    });
+
+    $(document).on('click', '#mint-button', function () {
+        if ($('#minter-role-form').valid()) {
+            $('#minter-role-button').prop('disabled', true);
+            $('#minter-role-button').text('Loading...');
+            $('#minter-role-form').submit();
+        }
+    });
+
+    $('#vibecoin_list_minter_role').DataTable();
+    function get_minter_role_form() {
+        $("#vibecoin_minter_role_add_modal").modal('show');
+    }
+
+    function get_minter_role_revoke(id) {
+        $('#vibecoin_minter_roles_id').val(id);
+        $("#vibecoin_minter_role_revoke_modal").modal('show');
+    } 
+</script>

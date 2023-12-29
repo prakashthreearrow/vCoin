@@ -1,0 +1,198 @@
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h4 class="text-themecolor">Dashboard</h4>
+        </div>
+        <div class="col-md-7 align-self-center text-right">
+            <div class="d-flex justify-content-end align-items-center">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <%- include('../common/flashMessage.ejs') %>
+        <!-- Info box -->
+        <!-- ============================================================== -->
+        <div class="card-group">
+            <div class="card mx-2" data-toggle="tooltip" data-placement="bottom" title="Admin address is used for Mint Vibecoin, Grant Mint Role, Revoke Mint Role, Gas Transfer.">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="d-flex no-block align-items-center">
+                                <div>
+                                    <h3><i class="fa fa-refresh refresh_icon1" href="#" role="button"
+                                            onclick="getVibecoinAndMaticBalance('admin','refresh_icon1')"></i></h3>
+                                    <p class="text-muted">Admin Vibecoin Balance</p>
+
+                                </div>
+                                <div class="ml-auto">
+                                    <h3 class="counter text-primary" id="vibecoin_balance_admin"></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <h5 class="counter text-primary" id="admin_address1"></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="card mx-2" data-toggle="tooltip" data-placement="bottom" title="Admin address is used for Mint Vibecoin, Grant Mint Role, Revoke Mint Role, Gas Transfer.">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="d-flex no-block align-items-center">
+                                <div>
+                                    <h3><i class="fa fa-refresh refresh_icon2" href="#" role="button"
+                                            onclick="getVibecoinAndMaticBalance('admin','refresh_icon2')"></i></h3>
+                                    <p class="text-muted">Admin Matic Balance</p>
+                                </div>
+                                <div class="ml-auto">
+                                    <h3 class="counter text-cyan" id="matic_balance_admin"></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <h5 class="counter text-cyan" id="admin_address2"></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-group">
+            <div class="card mx-2" data-toggle="tooltip" data-placement="bottom" title="Purchase address is used for Transfer Vibecoin to User and Business.">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="d-flex no-block align-items-center">
+                                <div>
+                                    <h3><i class="fa fa-refresh refresh_icon3" href="#" role="button"
+                                            onclick="getVibecoinAndMaticBalance('purchase','refresh_icon3')"></i>
+                                    </h3>
+                                    <p class="text-muted">Purchase Vibecoin Balance</p>
+                                </div>
+                                <div class="ml-auto">
+                                    <h3 class="counter text-purple" id="vibecoin_balance_purchase"></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <h5 class="counter text-purple" id="purchase_address1"></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="card mx-2" data-toggle="tooltip" data-placement="bottom" title="Purchase address is used for Transfer Vibecoin to User and Business.">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="d-flex no-block align-items-center">
+                                <div>
+                                    <h3><i class="fa fa-refresh refresh_icon4" 4 href="#" role="button"
+                                            onclick="getVibecoinAndMaticBalance('purchase','refresh_icon4')"></i>
+                                    </h3>
+                                    <p class="text-muted">Purchase Matic Balance</p>
+                                </div>
+                                <div class="ml-auto">
+                                    <h3 class="counter text-success" id="matic_balance_purchase"></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <h5 class="counter text-success" id="purchase_address2"></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- .right-sidebar -->
+        <!-- <div class="right-sidebar">
+        <div class="slimscrollright">
+            <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span>
+            </div>
+            <div class="r-panel-body">
+                <ul id="themecolors" class="m-t-20">
+                    <li><b>With Light sidebar</b></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-default"
+                            class="default-theme working">1</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-green" class="green-theme">2</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-red" class="red-theme">3</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-blue" class="blue-theme">4</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-purple" class="purple-theme">5</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-megna" class="megna-theme">6</a></li>
+                    <li class="d-block m-t-30"><b>With Dark sidebar</b></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-default-dark"
+                            class="default-dark-theme ">7</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-green-dark"
+                            class="green-dark-theme">8</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-red-dark" class="red-dark-theme">9</a>
+                    </li>
+                    <li><a href="javascript:void(0)" data-skin="skin-blue-dark"
+                            class="blue-dark-theme">10</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-purple-dark"
+                            class="purple-dark-theme">11</a></li>
+                    <li><a href="javascript:void(0)" data-skin="skin-megna-dark"
+                            class="megna-dark-theme ">12</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>     -->
+</div>
+<script type="text/javascript">
+    getVibecoinAndMaticBalance('admin')
+    getVibecoinAndMaticBalance('purchase')
+    function getVibecoinAndMaticBalance(address_type, refresh_button) {
+        switch (refresh_button) {
+            case 'refresh_icon1':
+                $(".refresh_icon1").addClass('fa-spin');
+                break;
+            case 'refresh_icon2':
+                $(".refresh_icon2").addClass('fa-spin');
+                break;
+            case 'refresh_icon3':
+                $(".refresh_icon3").addClass('fa-spin');
+                break;
+            case 'refresh_icon4':
+                $(".refresh_icon4").addClass('fa-spin');
+                break;
+            default:
+                $(".refresh_icon1").addClass('fa-spin');
+                $(".refresh_icon2").addClass('fa-spin');
+                $(".refresh_icon3").addClass('fa-spin');
+                $(".refresh_icon4").addClass('fa-spin');
+        }
+
+        $.ajax({
+            url: "<%= siteURL %>vibecoin_matic_balance",
+            type: "GET",
+            data: {
+                address_type: address_type
+            },
+            dataType: "json",
+            success: function (data) {
+                $(".refresh_icon1").removeClass("fa-spin");
+                $(".refresh_icon2").removeClass("fa-spin");
+                $(".refresh_icon3").removeClass("fa-spin");
+                $(".refresh_icon4").removeClass("fa-spin");
+                $("#vibecoin_balance_admin").text(data.data.admin_vibecoin);
+                $("#matic_balance_admin").text(data.data.admin_matic);
+                $("#admin_address1").text(data.data.admin_address);
+                $("#admin_address2").text(data.data.admin_address);
+
+                $("#vibecoin_balance_purchase").text(data.data.purchase_vibecoin);
+                $("#matic_balance_purchase").text(data.data.purchase_matic);
+                $("#purchase_address1").text(data.data.purchase_address);
+                $("#purchase_address2").text(data.data.purchase_address);
+            },
+            error: function (params) { },
+        });
+    }
+
+</script>

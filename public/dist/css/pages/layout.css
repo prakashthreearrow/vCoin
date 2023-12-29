@@ -1,0 +1,35 @@
+/*
+Template Name: Admin Template
+Author: Wrappixel
+
+File: scss
+*/
+@import url(https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700);
+/*Theme Colors*/
+
+/*******************
+Layout page
+******************/
+.mini-sidebar .scroll-sidebar .u-dropdown{display: block !important;}
+
+body.skin-default.fixed-layout.skin-blue-dark.mini-sidebar .dropdown-item span{
+    display: none;
+}
+.mini-sidebar .left-sidebar .user-pro-body a.link{
+    white-space: normal;
+}
+.mini-sidebar .scroll-sidebar  .user-profile .dropdown-menu{
+    width: 60px;
+    min-width:0;
+    top: 50px!important;
+}
+
+/*******************
+left-sidebar
+******************/
+.user-profile .u-dropdown {
+    display: block;
+    text-align: center;
+    word-break: break-word;
+    white-space: normal;
+}

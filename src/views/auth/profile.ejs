@@ -1,0 +1,129 @@
+<div class="container-fluid">
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+      <h4 class="text-themecolor">My Profile</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-right">
+      <div class="d-flex justify-content-end align-items-center">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="<%= siteURL %>dashboard">Home</a></li>
+          <li class="breadcrumb-item active">My Profile</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-xlg-3 col-md-5">
+      <div class="card">
+        <div class="card-body">
+          <center class="m-t-30">
+            <% if(locals.user.profilePhoto) { %>
+              <img id="profilePhoto" src="<%= locals.user.profilePhoto %>" onclick="chooseFile();" class="img-circle"
+                width="150" />
+              <% } else { %>
+                <img id="profilePhoto" src="../../../public/images/users/avatar.jpg" onclick="chooseFile();"
+                  class="img-circle" width="150" />
+                <% } %>
+          </center>
+          <div style="height: 0px; overflow: hidden">
+            <input type="file" id="fileInput" onchange="loadFile(event)" name="new_profile_photo" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8 col-xlg-3 col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="panel panel-info">
+            <div class="panel-wrapper collapse in" aria-expanded="true">
+              <div class="panel-body">
+                <form class="" id="changeform" action="<%= siteURL %>update_profile" method="POST">
+                  <div class="form-group">
+                    <div class="col-md-6">
+                      <label class="control-label">First Name</label>
+                      <input class="form-control" id="first_name_id" type="text" value="<%= userInfo.first_name %>"
+                        name="first_name" placeholder="First Name" />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-md-6">
+                      <label class="control-label">Last Name</label>
+                      <input class="form-control" id="last_name_id" value="<%= userInfo.last_name %>" type="text"
+                        name="last_name" placeholder="Last Name" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-md-6">
+                      <label class="control-label">Email</label>
+                      <input class="form-control" value="<%= userInfo.email %>" type="email" disabled
+                        placeholder="Email" />
+                      <input type="hidden" value="<%= userInfo.id %>" name="id" id="id" />
+                    </div>
+                  </div>
+                  <button class="btn btn-primary waves-effect waves-light" type="submit">
+                    Save
+                  </button>
+                  <button onclick="history.back()" type="button" class="btn btn-inverse">Cancel</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function checkextension() {
+    var file = document.querySelector("#image");
+    if (/\.(jpe?g|png|gif)$/i.test(file.files[0].name) === false) {
+      alert("Photo only allows file types of  PNG, JPG, JPEG !");
+    }
+  }
+  function chooseFile() {
+    $("#fileInput").click();
+  }
+  function loadFile(event) {
+    var reload
+    clearTimeout(reload)
+    var data = new FormData();
+    data.append("profile_photo", event.target.files[0]);
+    data.append("id", $("#id").val());
+    $.ajax({
+      url: "<%= siteURL %>change_profile",
+      type: "POST",
+      processData: false,
+      contentType: false,
+      data: data,
+      success: function (data) {
+        reload = setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      },
+      error: function (params) { },
+    });
+  }
+  $(function () {
+    $("#changeform").validate({
+      rules: {
+        first_name: {
+          required: true,
+        },
+        last_name: {
+          required: true,
+        },
+      },
+    });
+  });
+  $('#first_name_id').bind('keyup blur', function () {
+    var node = $(this);
+    node.val(node.val().replace(/[^a-z]/g, ''));
+  }
+  );
+  $('#last_name_id').bind('keyup blur', function () {
+    var node = $(this);
+    node.val(node.val().replace(/[^a-z]/g, ''));
+  }
+  );
+</script>
